@@ -1,23 +1,143 @@
-# Auth Project
+Node.js + Express + Mongoose JWT authentication API (Bearer tokens)
 
-## Tech Stack
-- Node.js
-- Express.js
-- MongoDB + Mongoose
-- JWT
-- Postman
+## Live (deployed)
+https://auth-project-rfbp.onrender.com
 
-## API Endpoints
-- POST /api/auth/register
-- POST /api/auth/login
-- GET /api/auth/me (Protected)
+## Repo
+https://github.com/zmasalikar/auth-project
 
-## Run
-```bash
-npm install
-npm run dev
+## Overview
+Simple API implementing user authentication and authorization using JWT bearer tokens.  
+Follows MVC pattern with separate folders for models, controllers, routes and middlewares.
+
+---
+
+## Endpoints
+
+### 1. Register
+- URL: `POST /api/auth/register`
+- Body (JSON):
+json
+{ "username": "testuser", "email": "test@mail.com", "password": "123456" }
+
+
+* Success:
+json
+{ "message": "User registered successfully" }
+
+* Errors:
+
+  * 400 (validation)
+  * 409 (email exists)
+  * 500 (server)
+
+---
+
+### 2. Login
+
+* URL: `POST /api/auth/login`
+* Body (JSON):
+
+json
+{ "email": "test@mail.com", "password": "123456" }
 ```
 
-## Deploy
-1. Push to GitHub
-2. Deploy on Render
+* Success:
+
+json
+{ "token": "<JWT token>" }
+
+
+---
+
+### 3. Get current user
+
+* URL: `GET /api/auth/me`
+* Header:
+
+```
+Authorization: Bearer <token>
+```
+
+* Success:
+
+json
+{ "user": { "id": "...", "email":"..." } }
+
+---
+
+## Tech stack
+
+* Node.js
+* Express.js
+* MongoDB Atlas + Mongoose
+* JWT
+* Postman
+
+---
+
+## Local setup
+
+1. Clone the repo
+
+   ```bash
+   git clone https://github.com/zmasalikar/auth-project.git
+   cd auth-project
+   ```
+2. Copy `.env.example` → `.env` and set real values.
+   Example:
+
+   ```
+   PORT=5000
+   MONGO_URI=mongodb+srv://<username>:<password>@<clustername>.mongodb.net/authdb
+   JWT_SECRET=mysecret123
+   ```
+3. Install dependencies
+
+   ```bash
+   npm install
+   ```
+4. Run locally (with nodemon):
+
+   ```bash
+   npm run dev
+   ```
+5. Server will start at `http://localhost:5000`
+
+---
+
+## Deploy notes
+
+* Deployed on [Render](https://render.com/) (connected to GitHub).
+* Ensure `MONGO_URI` in Render is set to Atlas connection string.
+* `JWT_SECRET` set in Render environment variables.
+
+---
+
+## Postman
+
+* Import `auth-project.postman_collection.json` (included in repo).
+* Collection includes Register, Login, Me endpoints.
+* Replace `{{token}}` in Authorization header with the JWT from login.
+
+---
+
+## Example Flow
+
+1. Register → returns success message.
+2. Login → returns JWT token.
+3. Me → returns user info when called with token in `Authorization` header.
+
+---
+
+## Notes
+
+* Uses `bcryptjs` for password hashing.
+* Proper error handling and validation included.
+* Follows MVC structure:
+
+  * `models/User.js`
+  * `controllers/authController.js`
+  * `routes/authRoutes.js`
+  * `middlewares/authMiddleware.js`
+
