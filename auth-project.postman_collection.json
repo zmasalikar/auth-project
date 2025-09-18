@@ -1,0 +1,66 @@
+{
+  "info": {
+    "name": "Auth Project",
+    "_postman_id": "c47c5f45-1cde-4f2e-889d-8a88e3e2a123",
+    "description": "Postman collection for Auth Project (Register, Login, Me)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register User",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"testuser\",\n  \"email\": \"test@mail.com\",\n  \"password\": \"123456\"\n}"
+        },
+        "url": {
+          "raw": "https://auth-project-rfbp.onrender.com/api/auth/register",
+          "protocol": "https",
+          "host": ["auth-project-rfbp","onrender","com"],
+          "path": ["api","auth","register"]
+        }
+      }
+    },
+    {
+      "name": "Login User",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"test@mail.com\",\n  \"password\": \"123456\"\n}"
+        },
+        "url": {
+          "raw": "https://auth-project-rfbp.onrender.com/api/auth/login",
+          "protocol": "https",
+          "host": ["auth-project-rfbp","onrender","com"],
+          "path": ["api","auth","login"]
+        }
+      }
+    },
+    {
+      "name": "Get User Info (Protected)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "url": {
+          "raw": "https://auth-project-rfbp.onrender.com/api/auth/me",
+          "protocol": "https",
+          "host": ["auth-project-rfbp","onrender","com"],
+          "path": ["api","auth","me"]
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "token", "value": "" }
+  ]
+}
