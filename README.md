@@ -141,3 +141,20 @@ json
   * `routes/authRoutes.js`
   * `middlewares/authMiddleware.js`
 
+GitHub repo: https://github.com/zmasalikar/auth-project
+Live API (Render): https://auth-project-rfbp.onrender.com
+
+How to test:
+1) POST /api/auth/register -> create user
+   Body: { "username":"testuser", "email":"test@mail.com", "password":"123456" }
+
+2) POST /api/auth/login -> get token
+   Body: { "email":"test@mail.com", "password":"123456" }
+
+3) GET /api/auth/me -> get user info
+   Header: Authorization: Bearer <token>
+
+Notes:
+- Deployed on Render.
+- MongoDB Atlas used for production DB (MONGO_URI set in Render environment variables).
+- Postman collection included in repo: auth-project.postman_collection.json
